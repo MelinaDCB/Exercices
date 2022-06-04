@@ -10,39 +10,52 @@ namespace QuizCapitales
     {
         static string[] countries = { "Albanie", "Allemagne", "Andorre", "Autriche", "Belgique", "Biélorussie", "Bosnie-Herzégovine", "Bulgarie", "Chypre", "Croatie" };
         static string[] capitals = { "Tirana", "Berlin", "Andorre-la-Vieille", "Vienne", "Bruxelles", "Minsk", "Sarajevo", "Sofia", "Nicosie", "Zagreb" };
-
+        static int counter = 0;
         public static void Jouer()
         {
-            PoserQuestion();
-        }
-
-        public static bool PoserQuestion()
-        {
-            bool isAnswerCorrect = false;
-            for (int i = 0; i < countries.Length; i++)
+            for (int index = 0; index < countries.Length; index++)
             {
-                Console.WriteLine($"Quelle est la capitale de {countries[i]} ?");
-                string userAnswer = Console.ReadLine();
-                if (userAnswer == capitals[i])
-                {
-                    Console.WriteLine("Bravo !");
-                    isAnswerCorrect = true;
-                }
-                else
-                {
-                    Console.WriteLine($"Mauvaise réponse. Celle ci était {capitals[i]}");
-                    isAnswerCorrect = false;
-                }
-            
+                PoserQuestion(index);
             }
-            return true;
+            Console.WriteLine($"Votre score final est de {counter} bonnes réponses");
+           if (DemanderSiRejouer())
+            {
+                Jouer();
+            }
         }
 
-        public static DemanderSiRejouer()
+        public static bool PoserQuestion(int index)
+        {
+            Console.WriteLine($"Quelle est la capitale de {countries[index]} ?");
+            string userAnswer = Console.ReadLine();
+            if (userAnswer == capitals[index])
+            {
+                Console.WriteLine("Bravo !");
+                counter++;
+                return true;
+            }
+            else
+            {
+                Console.WriteLine($"Mauvaise réponse. Celle ci était {capitals[index]}");
+                return false;
+            }
+        }
+
+        public static bool DemanderSiRejouer()
         {
             Console.WriteLine("Voulez vous rejouer ?");
-            
-
+            string isReplay = Console.ReadLine();
+            if (isReplay == "o" || isReplay == "O")
+            {
+                Console.Clear();
+                counter = 0;
+                return true; 
+            }
+            else
+            {
+                Console.WriteLine("Merci d'avoir joué !");
+                return false;
+            }
         }
     }
 }
