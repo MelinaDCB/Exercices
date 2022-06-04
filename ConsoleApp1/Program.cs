@@ -1,4 +1,4 @@
 ﻿using QuizCapitales;
 
-Quiz1.Jouer();
+Quiz2.Jouer();
 Console.ReadKey();
